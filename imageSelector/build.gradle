@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 27
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+}
+
+dependencies {
+    //    compile 'com.android.support:support-v4:22.2.1'
+    api files('libs/PhotoView-1.2.4-sources.jar')
+    api files('libs/PhotoView-1.2.4.jar')
+    //    compile files('libs/android_v7_recyclerview.jar')
+    api 'com.github.bumptech.glide:glide:3.6.1'
+//    api "com.android.support:appcompat-v7:27.1.1"
+//    api 'com.android.support:support-v4:23.2.0'
+//    api 'com.android.support:recyclerview-v7:23.2.0'
+    //    compile 'com.android.support:recyclerview-v7:23.2.0'
+    //    compile files('libs/glide-3.6.1.jar')
+    //    compile files('libs/universal-image-loader-1.8.6-with-sources.jar')
+        api project(':BaseViewLibrary')
+}

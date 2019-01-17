@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.blks.antrscapp">
+
+
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 访问网络，网络定位需要上网-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- SD卡读取权限，用户写入离线定位数据-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 位置采集周期 -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <!--唤醒-->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="false"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+    <application
+        android:name="com.blks.application.RoadSideCarApplication"
+        android:allowBackup="false"
+        android:persistent="true"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <!-- 在百度开发者中心查询应用的API Key -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="q8TUxwLW5kmD8LGTpNmb0vpHZrSxXm9i" />
+
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SeclectCarsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".HomePagerActivity"
+            android:label="@string/title_activity_home_pager"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PersonActivity"
+            android:label="@string/title_activity_person"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SetActivity"
+            android:label="@string/title_activity_set"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AboutOurActivity"
+            android:label="@string/title_activity_about_our"
+            android:screenOrientation="portrait"/>
+
+
+        <activity
+            android:name=".TaskDetailActivity"
+            android:label="@string/title_activity_task_detail"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CameraHelpActivity"
+            android:label="@string/title_activity_camera_help"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ClientSureActivity"
+            android:label="@string/title_activity_client_sure"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".RecordActivity"
+            android:label="@string/title_activity_record"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".WorkOrdersIndexActivity"
+            android:label="@string/title_activity_work_orders_index"
+            android:screenOrientation="portrait"/>
+
+
+        <activity android:name=".TrailerHandleAct"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CancelWorkOrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LookImgsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UserHandbookAct"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".HotQuestionAct"
+            android:screenOrientation="portrait"/>
+
+
+        <service android:name="com.blks.service.HeartService"
+            android:enabled="true"/>
+        <service android:name="com.blks.service.TaskService"
+            android:enabled="true"/>
+        <service android:name="com.blks.service.SiteService"
+            android:enabled="true"/>
+        <service android:name="com.blks.service.UpdateService"
+            android:enabled="true"/>
+
+
+        <receiver android:name="com.blks.receiver.NetworkChangeReceiver"
+            android:enabled="true"
+            android:exported="true"/>
+        <receiver android:name="com.blks.receiver.AlarmReceiver"/>
+
+
+        <!-- 7.0uri适配 -->
+
+        <provider
+            android:authorities="com.blks.antrscapp.fileprovider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+    </application>
+
+</manifest>

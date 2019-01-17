@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/home_actionBar" >
+
+        <TextView
+            android:id="@+id/top_title"
+            style="@style/total_title"
+            android:text="救援操作流程" />
+
+        <ImageView
+            android:id="@+id/img_back"
+            style="@style/aleft"
+            android:contentDescription="@string/app_name" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topView"
+        android:scrollbars="none" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/hua_progress_bar"
+        android:visibility="visible" />
+
+</RelativeLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RoundProgressBar">
+        <attr name="roundColor" format="color" />
+        <attr name="roundProgressColor" format="color" />
+        <attr name="roundWidth" format="dimension"></attr>
+        <attr name="roundTextColor" format="color" />
+        <attr name="roundTextSize" format="dimension" />
+        <attr name="max" format="integer"></attr>
+        <attr name="textIsDisplayable" format="boolean"></attr>
+        <attr name="style">
+            <enum name="STROKE" value="0"></enum>
+            <enum name="FILL" value="1"></enum>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="tabWidget">
+        <attr name="TabIcon" format="reference|color" />
+        <attr name="iconWidth" format="dimension" />
+        <attr name="iconHeight" format="dimension" />
+        <attr name="text" format="reference|string" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="arrowView">
+        <attr name="arrowDefault" format="integer" />
+        <attr name="arrowNumber" format="integer" />
+        <attr name="arrowDefaultIcon" format="reference|color" />
+        <attr name="arrowIcon" format="reference|color" />
+        <attr name="arrowPadding" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="editTextView">
+        <attr name="lableText" format="reference|string" />
+        <attr name="lableColor" format="color" />
+        <attr name="lableSize" format="dimension" />
+        <attr name="lableSingleLine" format="boolean" />
+        <attr name="valueText" format="reference|string" />
+        <attr name="valueColor" format="color" />
+        <attr name="valueSize" format="dimension" />
+        <attr name="valueSingleLine" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="arrowEditView">
+        <attr name="viewHint" format="reference|string" />
+        <attr name="tvColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="roundedimageview">
+        <attr name="border_thickness" format="dimension" />
+        <attr name="border_inside_color" format="color" />
+        <attr name="border_outside_color" format="color"></attr>
+    </declare-styleable>
+    <declare-styleable name="RecyclerView">
+
+        <!--
+        Class name of the Layout Manager to be used.
+        <p/>
+        The class must extend android.support.v7.widget.RecyclerView$LayoutManager
+        and have either a default constructor or constructor with the signature
+        (android.content.Context, android.util.AttributeSet, int, int).
+         <p/>
+         If the name starts with a '.', application package is prefixed.
+         Else, if the name contains a '.', the classname is assumed to be a full class name.
+         Else, the recycler view package name (android.support.v7.widget) is prefixed.
+        -->
+        <attr name="layoutManager" format="string" />
+
+        <!-- ============================= -->
+        <!-- Attributes for Layout Manager -->
+        <!-- ============================= -->
+        <eat-comment />
+
+        <attr name="android:orientation" />
+        <attr name="spanCount" format="integer" />
+        <attr name="reverseLayout" format="boolean" />
+        <attr name="stackFromEnd" format="boolean" />
+    </declare-styleable>
+
+    <!-- 红点 -->
+    <declare-styleable name="redPointView">
+        <attr name="pointColor" format="reference|color"></attr>
+        <attr name="number" format="string"></attr>
+        <attr name="pointTextColor" format="reference|color"></attr>
+    </declare-styleable>
+   
+    
+    <declare-styleable name="bottomItemView">
+        <attr name="txt_color" format="reference|color"/>
+        <attr name="txt" format="reference|string"/>
+        <attr name="img" format="reference"/>
+        <attr name="imgSize" format="reference|dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="RecyclerViewPager">
+        <attr name="rvp_triggerOffset" format="float" />
+        <attr name="rvp_flingFactor" format="float" />
+        <attr name="rvp_singlePageFling" format="boolean" />
+    </declare-styleable>
+
+
+</resources>

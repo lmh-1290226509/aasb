@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/home_actionBar">
+
+        <TextView
+            android:id="@+id/titleTv"
+            style="@style/total_title"
+            android:text="@string/about" />
+
+        <ImageView
+            android:id="@+id/about_back"
+            style="@style/aleft"
+            android:contentDescription="@string/app_name" />
+    </RelativeLayout>
+
+
+    <com.ddadai.baseviewlibrary.view.RecyclerViewPager
+        android:id="@+id/rvp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

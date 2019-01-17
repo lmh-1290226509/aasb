@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/set"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_gray"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/home_actionBar" >
+
+        <TextView
+            style="@style/total_title"
+            android:text="@string/common" />
+
+        <ImageView
+            android:id="@+id/set_back"
+            style="@style/aleft"
+            android:contentDescription="@string/app_name" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/line" />
+
+    <LinearLayout
+        android:id="@+id/ll_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/my_item"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/modification" />
+
+        <TextView
+            style="@style/ss_ll_item_textView"
+            android:layout_width="match_parent"
+            android:layout_marginRight="10dp"
+            android:drawableRight="@drawable/icon_righ_sy"
+            android:text="@string/modfiy_password" />
+
+    </LinearLayout>
+
+    <View style="@style/view_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_cache"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/my_item"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/delete" />
+
+        <TextView
+            style="@style/ss_ll_item_textView"
+            android:layout_width="match_parent"
+            android:layout_marginRight="10dp"
+            android:drawableRight="@drawable/icon_righ_sy"
+            android:text="@string/modfiy_cache" />
+    </LinearLayout>
+
+    <View style="@style/view_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/my_item"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/icon_setting" />
+
+        <TextView
+            style="@style/ss_ll_item_textView"
+            android:layout_width="match_parent"
+            android:layout_marginRight="10dp"
+            android:drawableRight="@drawable/icon_righ_sy"
+            android:text="设置程序" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line" />
+
+</LinearLayout>

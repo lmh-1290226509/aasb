@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TabSmoothView">
+        <attr name="items" format="reference" />
+        <attr name="tabHeight" format="reference|dimension" />
+        <attr name="lineColor" format="reference" />
+        <attr name="textPadding" format="reference|dimension" />
+        <attr name="lineWidth" format="reference|dimension" />
+        <attr name="txtColor" format="reference|color" />
+        <attr name="txtSize" format="reference|dimension" />
+        <attr name="checkTextColor" format="reference|color" />
+        <attr name="tabColor" format="reference|color" />
+    </declare-styleable>
+
+
+</resources>

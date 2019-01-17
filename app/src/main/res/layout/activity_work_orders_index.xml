@@ -1,0 +1,653 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_gray"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/home_actionBar">
+
+        <TextView
+            style="@style/total_title"
+            android:text="@string/workOrders" />
+
+        <ImageView
+            android:id="@+id/work_orders_back"
+            style="@style/aleft"
+            android:contentDescription="@string/app_name" />
+    </RelativeLayout>
+
+    <View
+        style="@style/view_line"
+        android:layout_marginTop="10dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/servce_number" />
+
+                <TextView
+                    android:id="@+id/servceNumber"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/connect_time" />
+
+                <TextView
+                    android:id="@+id/connectTime"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/business_source" />
+
+                <TextView
+                    android:id="@+id/businessSource"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/client_name" />
+
+                <TextView
+                    android:id="@+id/clientName"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/client_phone" />
+
+                <TextView
+                    android:id="@+id/clientPhone"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/car_number" />
+
+                <TextView
+                    android:id="@+id/caNumber"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/servce_project" />
+
+                <TextView
+                    android:id="@+id/servceProject"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/charging_standard" />
+
+                <TextView
+                    android:id="@+id/chargingStandard"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/help_reason" />
+
+                <TextView
+                    android:id="@+id/helpReason"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/fault_position" />
+
+                <TextView
+                    android:id="@+id/faultPosition"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/order_time" />
+
+                <TextView
+                    android:id="@+id/orderTime"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/send_time" />
+
+                <TextView
+                    android:id="@+id/sendTime"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/return_time" />
+
+                <TextView
+                    android:id="@+id/returnTime"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/location_time" />
+
+                <TextView
+                    android:id="@+id/locationTime"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/location_km" />
+
+                <TextView
+                    android:id="@+id/locationKm"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/truck_km" />
+
+                <TextView
+                    android:id="@+id/truckKm"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="救援照片" />
+
+                <LinearLayout
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/imgsTv"
+                        style="@style/table_item_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:text="查看"
+                        android:layout_marginLeft="16dp"
+                        android:id="@+id/lookImgsTv"
+                        style="@style/table_item_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/send_person" />
+
+                <TextView
+                    android:id="@+id/sendPerson"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/actual_person" />
+
+                <TextView
+                    android:id="@+id/actualPerson"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/assist_car" />
+
+                <TextView
+                    android:id="@+id/assistCar"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/dispatch_car_number" />
+
+                <TextView
+                    android:id="@+id/dispatchCarNumber"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/service_state" />
+
+                <TextView
+                    android:id="@+id/serviceState"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/order_type" />
+
+                <TextView
+                    android:id="@+id/orderType"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/actual_complete_time" />
+
+                <TextView
+                    android:id="@+id/actualCompleteTime"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/client_satisfaction" />
+
+                <TextView
+                    android:id="@+id/clientSatisfaction"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/my_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:text="@string/explain" />
+
+                <TextView
+                    android:id="@+id/explain"
+                    style="@style/table_item_textView"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5" />
+            </LinearLayout>
+
+            <View style="@style/view_line" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

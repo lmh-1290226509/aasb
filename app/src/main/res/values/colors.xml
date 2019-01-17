@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="home_actionBar">#3D82F2</color>
+    <!--<color name="home_actionBar">#2828FF</color>-->
+    <color name="actionBar_gray">#9D9D9D</color>
+    <color name="app_gray">#F0F0F0</color>
+    <color name="line">#E0E0E0</color>
+    <color name="my_item">#4F4F4F</color>
+    <color name="color_red">#FF2A68</color>
+    <color name="gray">#F0F0F0</color>
+    <color name="yellow">#F8CF47</color>
+</resources>

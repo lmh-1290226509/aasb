@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 定义对话框主题,继承于父类,并进行修改 -->
+    <style name="Theme.CustomDialog" parent="android:style/Theme.Dialog">
+
+        <!-- <item name="android:windowBackground">@drawable/filled_box</item> -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="loading_small">
+        <item name="android:indeterminateDrawable">@drawable/bal_loading</item>
+        <item name="android:layout_width">30dip</item>
+        <item name="android:layout_height">30dip</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+</resources>

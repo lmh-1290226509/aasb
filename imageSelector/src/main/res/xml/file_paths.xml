@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--任意-->
+    <paths>
+        <external-path
+            name="camera_photos"
+        path="Android/data/com.blks.antrscapp/files/Pictures" /><!--相机图片保存图片路径，属于APP的存储空间-->
+    </paths>
+
+</resources>

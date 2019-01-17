@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="class_listview">1xff0001</item>
+    <item type="id" name="activity_listview">1xff0002</item>
+    <item type="id" name="fund_listview">1xff0003</item>
+    <item type="id" name="class_expandable">1xff0004</item>
+    <item type="id" name="student_expandable">1xff0005</item>
+     <item name="actionBar" type="id"/>
+    <item name="viewContainer" type="id"/>
+    
+    <item type="id" name="layoutRootView"/>
+    
+    
+      <item type="id" name="item_touch_helper_previous_elevation"/>
+    
+    
+  
+</resources>

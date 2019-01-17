@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/noTv"
+            style="@style/text_normal_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:text="1321321321321" />
+
+        <TextView
+            android:id="@+id/statusTv"
+            style="@style/text_normal_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="1321321321321"
+            android:textColor="#EC4844" />
+
+        <TextView
+            android:id="@+id/areaTv"
+            style="@style/text_normal_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/noTv"
+            android:layout_marginBottom="3dp"
+            android:text="1321321321321" />
+
+        <TextView
+            android:id="@+id/typeTv"
+            style="@style/text_normal_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/areaTv"
+            android:layout_marginBottom="10dp"
+            android:text="1321321321321" />
+
+        <TextView
+            android:id="@+id/timeTv"
+            style="@style/text_normal_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/areaTv"
+            android:layout_alignParentRight="true"
+            android:text="1321321321321" />
+
+        <RelativeLayout
+            android:id="@+id/layoutBootom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/typeTv">
+
+            <TextView
+                android:id="@+id/orderStatusTv"
+                style="@style/text_gray_style"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已经完成" />
+            <TextView
+                android:id="@+id/detailTv"
+                android:layout_centerHorizontal="true"
+                style="@style/text_gray_style"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="详情" />
+            <TextView
+                android:id="@+id/cancelTv"
+                android:layout_alignParentRight="true"
+                style="@style/text_gray_style"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消/退回" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <View style="@style/view_line"/>
+</LinearLayout>
