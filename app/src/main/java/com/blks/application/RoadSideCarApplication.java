@@ -4,17 +4,19 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.view.Gravity;
 import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.blks.bdloc.FULocationService;
-import com.blks.utils.CrashHandler;
 import com.blks.utils.EUExUtil;
 import com.blks.utils.LoginUtils;
 import com.ddadai.basehttplibrary.HttpUtils;
 import com.ddadai.basehttplibrary.request.BaseUrl;
+import com.wenming.library.LogReport;
+import com.wenming.library.save.imp.CrashWriter;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -43,11 +45,18 @@ public class RoadSideCarApplication extends Application {
 
 		initPhotoError();
 		EUExUtil.init(this);
-
-		CrashHandler crashHandler = CrashHandler.getInstance();
-		crashHandler.init(this);
+		initCrashReport();
 	}
 
+	private void initCrashReport() {
+		LogReport.getInstance()
+				.setCacheSize(30 * 1024 * 1024)//支持设置缓存大小，超出后清空
+				.setLogDir(getApplicationContext(), Environment.getExternalStorageDirectory().toString()+"/resapp/")//定义路径为：sdcard/[app name]/
+				.setWifiOnly(false)//设置只在Wifi状态下上传，设置为false为Wifi和移动网络都上传
+				.setLogSaver(new CrashWriter(getApplicationContext()))//支持自定义保存崩溃信息的样式
+				//.setEncryption(new AESEncode()) //支持日志到AES加密或者DES加密，默认不开启
+				.init(getApplicationContext());
+	}
 
 	private void initPhotoError(){
 		// android 7.0系统解决拍照的问题

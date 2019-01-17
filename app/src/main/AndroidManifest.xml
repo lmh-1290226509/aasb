@@ -44,7 +44,6 @@
 
     <application
         android:name="com.blks.application.RoadSideCarApplication"
-        android:allowBackup="false"
         android:persistent="true"
         android:largeHeap="true"
         android:supportsRtl="true"

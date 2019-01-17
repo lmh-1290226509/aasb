@@ -1,5 +1,6 @@
 package com.blks.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class VersionModel extends BaseModel {
@@ -12,7 +13,7 @@ public class VersionModel extends BaseModel {
 
     public List<DataListModel> DataList;
 
-    public static class DataListModel {
+    public static class DataListModel implements Serializable{
         /**
          * VN_ID : 394152923A8824F2E05398162D0A1BE8
          * VERSION_SYSTEM : rscapp

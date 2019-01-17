@@ -117,44 +117,6 @@ public class ModfiyPasswordPopupWindow extends PopupWindow implements
 		}
 	}
 
-//	// 修改密码
-//	private void confirmPassWord() {
-//		HttpUtils.get(HttpUri.RESET_PWD)
-//				.dialog(false)
-//				.data("","")
-//				.data("","")
-//				.callBack(context)
-//				.request();
-////		changeArrayDateToJson();
-////		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-////		map.put("param", jsonArray.toString());// 用户密码
-////		map.put("token", "");// 用户密码
-////		FastHttp.ajaxGet(HttpAddress.CONFIRM_PASSWORD, map,
-////				App.getInstance().config, new AjaxCallBack() {
-////
-////					@Override
-////					public void callBack(ResponseEntity responseEntity) {
-////						String returnString = responseEntity
-////								.getContentAsString();
-////						Log.e("confirm:", String.valueOf(returnString));
-////						if (returnString != null) {
-////							// SharePreferenceUtil.setParam(context, "username",
-////							// username);
-////							// SharePreferenceUtil.setParam(context, "password",
-////							// password);
-////							// ToastUtil.showShort(context, "登录成功");
-////							// openActivity(SeclectCarsActivity.class);
-////							// finish();
-////						}
-////					}
-////
-////					@Override
-////					public boolean stop() {
-////						return false;
-////					}
-////				});
-//	}
-
 	/*
 	 * 转化成json字符串
 	 */
