@@ -37,6 +37,7 @@ import com.ddadai.basehttplibrary.HttpUtils;
 import com.ddadai.basehttplibrary.response.Response_;
 import com.ddadai.basehttplibrary.utils.HttpCode;
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 import com.yongchun.library.ImageSelectorUtil;
 
 import org.json.JSONArray;
@@ -361,7 +362,6 @@ public class CameraHelpActivity extends BaseActivity implements
     }
 
     private void requestSaveInfo(){
-
         JSONArray ja=new JSONArray();
         for (int i = 0; i <mImageInfoList.size() ; i++) {
             JSONObject jsonObject=new JSONObject();
@@ -377,6 +377,8 @@ public class CameraHelpActivity extends BaseActivity implements
             }
             ja.put(jsonObject);
         }
+//取消后台接口请求
+        OkGo.getInstance().cancelTag("background");
 
         HttpUtils.postImageInfo()
                 .data("woNo", workOrderData.WO_NO)

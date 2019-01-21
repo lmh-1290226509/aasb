@@ -49,7 +49,9 @@ public abstract class BaseRequest_ {
                 request = OkGo.get(finalUrl);
                 break;
         }
-        request.tag(postRequest_.uri);
+        if (!TextUtils.isEmpty(postRequest_.tag)) {
+            request.tag(postRequest_.tag);
+        }
         request.priority(postRequest_.priority);
 //        OkHttpClient okHttpClient = OkGo.getInstance().getOkHttpClient();
 //        OkHttpClient.Builder builder=new OkHttpClient.Builder(okHttpClient);

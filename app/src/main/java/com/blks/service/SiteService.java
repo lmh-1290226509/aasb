@@ -212,6 +212,7 @@ public class SiteService extends Service {
 //                }
 
                 builder.mulKey("usrId")
+                        .tag("background")
 //                        .callBack(new JsonRequestCallBack(this) {
 //                            @Override
 //                            public void requestSuccess(String url, JSONObject jsonObject) {
@@ -244,6 +245,7 @@ public class SiteService extends Service {
                         .data("mark", option)
                         .data("entity_name", carNo + woNo)
                         .priority(5)
+                        .tag("background")
 //                        .callBack(new JsonRequestCallBack(this) {
 //                            @Override
 //                            public void requestSuccess(String url, JSONObject jsonObject) {

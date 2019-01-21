@@ -24,8 +24,22 @@ public class LogoUtils {
         options.inJustDecodeBounds = true;//只读取图片大小，不加载到内存中
         options.inPreferredConfig = Bitmap.Config.RGB_565;//相对于ARGB_8888内存占用小
         BitmapFactory.decodeFile(file, options);
-        options.inSampleSize = computeSampleSize(options, -1, SystemUtils.widthPs * SystemUtils.heightPs);
         options.inJustDecodeBounds = false;
+        int w = options.outWidth;
+        int h = options.outHeight;
+        // 现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
+        float hh = 800f;// 这里设置高度为800f
+//        float ww = 480f;// 这里设置宽度为480f
+        // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
+        int be = 1;// be=1表示不缩放
+        if (w > h && w > hh) {// 如果宽度大的话
+            be = (int) (options.outWidth / hh);
+        } else if (w < h && h > hh) {// 如果高度高的话
+            be = (int) (options.outHeight / hh);
+        }
+        if (be <= 0)
+            be = 1;
+        options.inSampleSize = be;// 设置缩放比例
         Bitmap sourceBitmap = BitmapFactory.decodeFile(file, options);
 
         if (TextUtils.isEmpty(logoModel.address) || "null".equals(logoModel.address)) {
@@ -52,7 +66,8 @@ public class LogoUtils {
         try {
             compressFile = new Compressor(c)
                     .setDestinationDirectoryPath(dir)
-                    .setQuality(30)
+                    .setQuality(40)
+                    .setCompressFormat(Bitmap.CompressFormat.WEBP)
                     .compressToFile(new File(path), System.currentTimeMillis()+".jpg");
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,46 +111,46 @@ public class LogoUtils {
     }
 
     //获取一个较为合理的inSampleSize值得方法
-    private static int computeSampleSize(BitmapFactory.Options options,
-                                        int minSideLength, int maxNumOfPixels) {
-        int initialSize = computeInitialSampleSize(options, minSideLength,
-                maxNumOfPixels);
-
-        int roundedSize;
-        if (initialSize <= 8) {
-            roundedSize = 1;
-            while (roundedSize < initialSize) {
-                roundedSize <<= 1;
-            }
-        } else {
-            roundedSize = (initialSize + 7) / 8 * 8;
-        }
-        return roundedSize;
-    }
-
-    private static int computeInitialSampleSize(BitmapFactory.Options options,
-                                               int minSideLength, int maxNumOfPixels) {
-        double w = options.outWidth;
-        double h = options.outHeight;
-        int lowerBound = (maxNumOfPixels == -1) ? 1 :
-                (int) Math.ceil(Math.sqrt(w * h / maxNumOfPixels));
-        int upperBound = (minSideLength == -1) ? 128 :
-                (int) Math.min(Math.floor(w / minSideLength),
-                        Math.floor(h / minSideLength));
-
-        if (upperBound < lowerBound) {
-            // return the larger one when there is no overlapping zone.
-            return lowerBound;
-        }
-
-        if ((maxNumOfPixels == -1) &&
-                (minSideLength == -1)) {
-            return 1;
-        } else if (minSideLength == -1) {
-            return lowerBound;
-        } else {
-            return upperBound;
-        }
-    }
+//    private static int computeSampleSize(BitmapFactory.Options options,
+//                                        int minSideLength, int maxNumOfPixels) {
+//        int initialSize = computeInitialSampleSize(options, minSideLength,
+//                maxNumOfPixels);
+//
+//        int roundedSize;
+//        if (initialSize <= 8) {
+//            roundedSize = 1;
+//            while (roundedSize < initialSize) {
+//                roundedSize <<= 1;
+//            }
+//        } else {
+//            roundedSize = (initialSize + 7) / 8 * 8;
+//        }
+//        return roundedSize;
+//    }
+//
+//    private static int computeInitialSampleSize(BitmapFactory.Options options,
+//                                               int minSideLength, int maxNumOfPixels) {
+//        double w = options.outWidth;
+//        double h = options.outHeight;
+//        int lowerBound = (maxNumOfPixels == -1) ? 1 :
+//                (int) Math.ceil(Math.sqrt(w * h / maxNumOfPixels));
+//        int upperBound = (minSideLength == -1) ? 128 :
+//                (int) Math.min(Math.floor(w / minSideLength),
+//                        Math.floor(h / minSideLength));
+//
+//        if (upperBound < lowerBound) {
+//            // return the larger one when there is no overlapping zone.
+//            return lowerBound;
+//        }
+//
+//        if ((maxNumOfPixels == -1) &&
+//                (minSideLength == -1)) {
+//            return 1;
+//        } else if (minSideLength == -1) {
+//            return lowerBound;
+//        } else {
+//            return upperBound;
+//        }
+//    }
 
 }

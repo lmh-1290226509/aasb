@@ -93,6 +93,7 @@ public class HeartService extends Service {
                 .data("usrId", LoginUtils.getLoginModel().USR_ID)
                 .onlyKey("usrId")
                 .priority(5)
+                .tag("background")
 //                .callBack(new JsonRequestCallBack(this) {
 //                    @Override
 //                    public void requestSuccess(String url, JSONObject jsonObject) {

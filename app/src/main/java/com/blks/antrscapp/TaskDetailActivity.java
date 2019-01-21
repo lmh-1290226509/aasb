@@ -49,6 +49,7 @@ import com.ddadai.basehttplibrary.HttpUtils;
 import com.ddadai.basehttplibrary.response.Response_;
 import com.ddadai.basehttplibrary.utils.HttpCode;
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -673,6 +674,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 			remindWindow.dismiss();
 			switch (v.getId()) {
 			case R.id.tv_remind_continue:// 确定
+				OkGo.getInstance().cancelTag("background");
 				updateRscWorkerOption("到达");
 				break;
 			case R.id.tv_remind_cancel:// 取消

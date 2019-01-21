@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 
 import com.blks.customer.DownloadProgressDialog;
@@ -25,6 +27,7 @@ public class ApkUpdateUtils {
 
     Context context;
     boolean showToast;
+    private File file;
 
     public ApkUpdateUtils(Context context, boolean showToast) {
         this.context = context;
@@ -45,21 +48,16 @@ public class ApkUpdateUtils {
                         VersionModel vm=new Gson().fromJson(jsonObject.toString(),VersionModel.class);
                         if(vm.DataList!=null&&vm.DataList.size()!=0){
                             final VersionModel.DataListModel model = vm.DataList.get(0);
-
                             int newCode;
-
                             try{
                                 newCode = Integer.valueOf(model.VERSION_NO);
                             } catch (Exception e) {
                                 newCode = SystemUtils.versionCode;
                                 e.printStackTrace();
                             }
-
                             if(SystemUtils.versionCode < newCode){
                                 if("1".equals(model.IS_FORCE)){
-
                                     showDialogForUpdate(true,model);
-
                                 }else{
                                     showDialogForUpdate(false,model);
                                 }
@@ -68,7 +66,6 @@ public class ApkUpdateUtils {
                                     ToastUtil.showShort(context, "亲，已经是最新版本了");
                                 }
                             }
-
                         }
                     }
                 })
@@ -76,7 +73,7 @@ public class ApkUpdateUtils {
     }
 
 
-    private void showDialogForUpdate(final boolean isForce, final VersionModel.DataListModel model){
+    private void showDialogForUpdate(boolean isForce, final VersionModel.DataListModel model){
         if(isForce){
             DownloadAPK(model.VERSION_PACKAGE_URL);
             return;
@@ -127,21 +124,9 @@ public class ApkUpdateUtils {
         HttpUtils.downloadFile(url, new HttpUtils.OnDownloadListener() {
             @Override
             public void downloadSuccess(File file) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                    //6.0及以下跳转安装界面
-                    intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-                } else {
-                    //7.0及以上
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    Uri contentUri = FileProvider.getUriForFile(context, "com.blks.antrscapp.fileprovider", file);
-                    intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-                }
-
-                context.startActivity(intent);
                 progressDialog.dismiss();
+                ApkUpdateUtils.this.file = file;
+                installApp();
             }
 
             @Override
@@ -168,4 +153,59 @@ public class ApkUpdateUtils {
 
     }
 
+    /**
+     * app安装
+     */
+    private void installApp(){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            //6.0及以下跳转安装界面
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        } else {
+            //7.0及以上
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(context, "com.blks.antrscapp.fileprovider", file);
+            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+            //兼容8.0
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                boolean hasInstallPermission = context.getPackageManager().canRequestPackageInstalls();
+                if (!hasInstallPermission) {
+                    ToastUtil.showLong(context, "请在设置中允许安装未知来源应用");
+                    startInstallPermissionSettingActivity();
+                    return;
+                }
+            }
+        }
+        context.startActivity(intent);
+    }
+
+    /**
+     * 跳转到设置-允许安装未知来源-页面
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void startInstallPermissionSettingActivity() {
+        //注意这个是8.0新API
+        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+
+        new AlertDialog.Builder(context)
+                .setTitle("温馨提示")
+                .setMessage("应用下载完成")
+                .setCancelable(false)
+                .setPositiveButton("安装", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        installApp();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+    }
 }

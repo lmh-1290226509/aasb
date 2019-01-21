@@ -36,6 +36,7 @@ import com.ddadai.basehttplibrary.HttpUtils;
 import com.ddadai.basehttplibrary.response.Response_;
 import com.ddadai.basehttplibrary.utils.HttpCode;
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -250,7 +251,7 @@ public class TrailerHandleAct extends BaseActivity implements View.OnClickListen
      * @param option
      */
     private void updateRscWorkerOption(final String option) {
-
+        OkGo.getInstance().cancelTag("background");
         HttpUtils.get(HttpUri.UPDATE_RSC_WORKER_OPTION)
                 .dialog(true)
                 .data("woNo", workOrderData.WO_NO)
