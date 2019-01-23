@@ -76,6 +76,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                 .toString();
         et_account.setText(name);
         et_psd.setText(psw);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+
+        }
         permissionUtils.RequestPermission(permissions);
     }
 
@@ -185,7 +188,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                 .dialog(true)
                 .data("userName", et_account.getText().toString())
                 .data("userPassword", et_psd.getText().toString())
-                .data("uuid", "F18Q932J932")
+                .data("uuid", uuid)
                 .data("loginFrom", "rscapp")
                 .data("version", SystemUtils.versionName)
                 .data("clientOS", "ANDRIOD")

@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -133,16 +132,16 @@ public class ApkUpdateUtils {
             public void downloadFailed(int code, String reason) {
                 progressDialog.dismiss();
                 ToastUtil.showLong(context, reason);
-                if (code == 1) {
-                    Uri uri = Uri.parse(url);
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                            uri);
-                    if (context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
-                                != null) {
-                        context.startActivity(intent);
-                    }
-
-                }
+//                if (code == 1) {
+//                    Uri uri = Uri.parse(url);
+//                    Intent intent = new Intent(Intent.ACTION_VIEW,
+//                            uri);
+//                    if (context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//                                != null) {
+//                        context.startActivity(intent);
+//                    }
+//
+//                }
             }
 
             @Override

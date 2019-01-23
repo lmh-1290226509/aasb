@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
@@ -90,21 +92,43 @@ public class CameraHelpActivity extends BaseActivity implements
         adapter = null;
     }
 
+    Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            ImageInfo imageInfo = (ImageInfo) msg.obj;
+            mImageInfoList.add(imageInfo);
+            upload(imageInfo);
+            adapter.setList(mImageInfoList);
+        }
+    };
+
     private void initView() {
 
         imageSelectorUtil = new ImageSelectorUtil(new ImageSelectorUtil.ImageSelectorCallBack() {
             @Override
-            public void getImages(List<String> images) {
+            public void getImages(final List<String> images) {
                 if (images != null && images.size() != 0) {
-                    ImageInfo imageInfo = new ImageInfo();
-                    LogoModel logoModel = new LogoModel();
-                    logoModel.address = RoadSideCarApplication.getInstance().getLocationService().bdLocation.getAddrStr();
-                    logoModel.time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-                    String s = LogoUtils.addLogo(mThis, images.get(0), logoModel);
-                    imageInfo.setLocalImage(s);
-                    mImageInfoList.add(imageInfo);
-                    upload(imageInfo);
-                    adapter.setList(mImageInfoList);
+
+                    RoadSideCarApplication.getInstance().showToast("压缩中...");
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageInfo imageInfo = new ImageInfo();
+                            LogoModel logoModel = new LogoModel();
+                            logoModel.address = RoadSideCarApplication.getInstance().getLocationService().bdLocation.getAddrStr();
+                            logoModel.time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                            String s = LogoUtils.addLogo(mThis, images.get(0), logoModel);
+                            imageInfo.setLocalImage(s);
+
+                            Message msg = new Message();
+                            msg.obj = imageInfo;
+                            mHandler.sendMessage(msg);
+
+                        }
+                    }).start();
+
                 }
             }
         });

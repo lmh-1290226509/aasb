@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //    compile 'com.android.support:support-v4:22.2.1'
     api files('libs/PhotoView-1.2.4-sources.jar')
     api files('libs/PhotoView-1.2.4.jar')

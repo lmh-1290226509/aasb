@@ -26,6 +26,7 @@ import com.blks.model.UploadFileModel;
 import com.blks.pop.RecordCachePopupWindow;
 import com.blks.pop.RefreshRecordCachePopupWindow;
 import com.blks.utils.AudioFileFunc;
+import com.blks.utils.AudioPlayer;
 import com.blks.utils.AudioRecordFunc;
 import com.blks.utils.Constants;
 import com.blks.utils.LoginUtils;
@@ -52,7 +53,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 
     private TextView tv_record_close, tv_record_second, tv_record_up;
     private Button btn_playback, btn_begin, btn_finish, btn_record;
-    AudioRecordFunc recordFunc;
+//    AudioRecordFunc recordFunc;
+    AudioPlayer audioPlayer;
     private Timer timer_down, timer_up;
     private TimerTask timerTask_down, timerTask_up;
     private Context context;
@@ -87,7 +89,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 
         AudioFileFunc.AUDIO_WAV_FILENAME = woNo+".wav";
 
-        recordFunc = AudioRecordFunc.getInstance();
+        audioPlayer = new AudioPlayer(this, woNo);
+//        recordFunc = AudioRecordFunc.getInstance();
         initView();// 初始化数据
     }
 
@@ -109,7 +112,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
                     case UPDATE_TEXTVIEW:// 正计时
                         tv_record_up.setText(String.valueOf(j));
                         if (j == 120) {
-                            recordFunc.stopRecordAndFile();
+//                            recordFunc.stopRecordAndFile();
+                            audioPlayer.stopRecording();
                             stopTimer();
                             stopDown();
                             recordCache();
@@ -240,7 +244,9 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
                 if (isFirst) {
                     btn_begin.setText("正在录音");
                     btn_begin.setBackgroundResource(R.drawable.green);
-                    recordFunc.startRecordAndFile();
+//                    recordFunc.startRecordAndFile();
+                    audioPlayer.StopPlaying();
+                    audioPlayer.startRecording();
                     starDown();
                     starUp();
                     isFirst = false;
@@ -256,7 +262,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
                     return;
                 }
 
-                recordFunc.stopRecordAndFile();
+//                recordFunc.stopRecordAndFile();
+                audioPlayer.stopRecording();
                 stopTimer();
                 stopDown();
                 recordCache();
@@ -267,22 +274,24 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
                 }
                 break;
             case R.id.btn_playback:// 回放录音
-                recordFunc.stopRecordAndFile();
-                recordFunc.StartPlaying();
+//                recordFunc.stopRecordAndFile();
+//                recordFunc.StartPlaying();
+                audioPlayer.stopRecording();
+                audioPlayer.StartPlaying();
                 break;
             case R.id.btn_record:
                 if (j == 0) {
                     ToastUtil.showLong(this, "请先录音！");
                     return;
                 }
-                if (recordFunc.isRecord()) {
+                if (audioPlayer.isRecord()) {
                     ToastUtil.showLong(this, "请先结束录音！");
                     return;
                 }
 
                 btn_record.setEnabled(false);
 
-                if (recordFunc == null || recordFunc.getAudioPath() == null) {
+                if (audioPlayer == null) {
                     requestSaveConment(null);
                 } else {
                     requestUpload();
@@ -341,6 +350,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
                     tv_record_second.setText("120");
                     tv_record_up.setText("0");
                     isFirst = true;
+                    //删除录音信息
+                    removeAudioInfo();
                     break;
                 default:
                     break;
@@ -362,7 +373,9 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
                     btn_finish.setVisibility(View.VISIBLE);
                     i = 120;
                     j = 0;
-                    recordFunc.startRecordAndFile();
+//                    recordFunc.startRecordAndFile();
+                    audioPlayer.StopPlaying();
+                    audioPlayer.startRecording();
                     isFirst = false;
                     starDown();
                     starUp();
@@ -380,9 +393,13 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
-        if (recordFunc != null) {
-            recordFunc.stopRecordAndFile();
-            recordFunc.StopPlaying();
+//        if (recordFunc != null) {
+//            recordFunc.stopRecordAndFile();
+//            recordFunc.StopPlaying();
+//        }
+        if (audioPlayer != null) {
+            audioPlayer.stopRecording();
+            audioPlayer.StopPlaying();
         }
         stopTimer();
         stopDown();
@@ -391,9 +408,13 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (recordFunc != null) {
-            recordFunc.stopRecordAndFile();
-            recordFunc.StopPlaying();
+//        if (recordFunc != null) {
+//            recordFunc.stopRecordAndFile();
+//            recordFunc.StopPlaying();
+//        }
+        if (audioPlayer != null) {
+            audioPlayer.stopRecording();
+            audioPlayer.StopPlaying();
         }
         stopTimer();
         stopDown();
@@ -410,7 +431,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
     private void requestUpload() {
         //取消后台接口请求
         OkGo.getInstance().cancelTag("background");
-        HttpUtils.file().file(recordFunc.getAudioPath(), recordFunc.getAudioPath())
+        HttpUtils.file().file(audioPlayer.getAudioPath(), audioPlayer.getAudioPath())
                 .callBack(new JsonRequestCallBack(mThis) {
                     @Override
                     public void requestSuccess(String url, JSONObject jsonObject) {
@@ -498,8 +519,10 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
     public void onBackPressed() {
         super.onBackPressed();
 
-        recordFunc.stopRecordAndFile();
-        recordFunc.StopPlaying();
+//        recordFunc.stopRecordAndFile();
+//        recordFunc.StopPlaying();
+        audioPlayer.stopRecording();
+        audioPlayer.StopPlaying();
         stopTimer();
         stopDown();
     }
@@ -530,11 +553,11 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
         int audioTim = (int) SharePreferenceUtil.get(this, woNo + "audio", -1);
         if (audioTim != -1) {
 
-            if (TextUtils.isEmpty(recordFunc.getAudioPath())) {
-                recordFunc.setNewAudioName(AudioFileFunc.getWavFilePath());
-            }
+//            if (TextUtils.isEmpty(audioPlayer.getAudioPath())) {
+//                recordFunc.setNewAudioName(AudioFileFunc.getWavFilePath());
+//            }
 
-            File file = new File(recordFunc.getAudioPath());
+            File file = new File(audioPlayer.getAudioPath());
             if (file.exists() && file.length() > 0) {
 
                 btn_playback.setVisibility(View.VISIBLE);
