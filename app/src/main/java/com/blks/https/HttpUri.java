@@ -64,4 +64,7 @@ public interface HttpUri {
 
     //1.7头像信息更新
     String UPDATE_RSC_WORKER_PIC_URL="/RSC_Host.svc/UpdateRscWorkerPicUrl";
+
+    //1.7更新回拨时间
+    String UPDATE_CALLBACK_DATE="/RSC_Host.svc/UpdateCallbackDate";
 }

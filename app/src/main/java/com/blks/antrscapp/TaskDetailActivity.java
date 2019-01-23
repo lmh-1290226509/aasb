@@ -324,7 +324,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 			reminder();
 			break;
 		case R.id.ll_tel:
-			// String forPhoneNum = inputPhoneNumber.getText().toString();
+			upTelInfo();
 			intent = new Intent();
 			intent.setAction(Intent.ACTION_DIAL);
 			intent.setData(Uri.parse("tel:" + workOrderData.CUS_MOBILE));
@@ -379,7 +379,23 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 		}
 	}
 
-    /**
+	/**
+	 * 上传电话shijian
+	 */
+	private void upTelInfo() {
+		HttpUtils.get(HttpUri.UPDATE_CALLBACK_DATE)
+				.dialog(false)
+				.data("woNo", workNo)
+				.data("usrRealName", LoginUtils.getLoginModel().USR_REAL_NAME)
+				.data("usrId", LoginUtils.getLoginModel().USR_ID)
+				.data("usrOrgId", LoginUtils.getLoginModel().ORG_NO)
+				.data("usrName", LoginUtils.getLoginModel().USR_NAME)
+				.data("empNo", LoginUtils.getLoginModel().USR_EMP_NO)
+				.mulKey("woNo")
+				.request();
+	}
+
+	/**
      * 根据工单号获取工单信息
      */
 	private void getRscWOMstrByWoNo() {

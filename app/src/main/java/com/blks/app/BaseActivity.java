@@ -129,12 +129,12 @@ public class BaseActivity extends FragmentActivity implements PermissionUtils.Pe
 //        notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音
     }
 
-    public static String currentName="";
+    public static Object currentPage ;
 
     @Override
     protected void onResume() {
         super.onResume();
-        currentName=getClass().getSimpleName();
+        currentPage = this;
         if(!isBackground&&orderModel!=null){
 
             final WorkOrderModel.DataListModel model = orderModel.DataList.get(0);
@@ -205,7 +205,7 @@ public class BaseActivity extends FragmentActivity implements PermissionUtils.Pe
     @Subscribe
     public void isBackground(Boolean ib) {
         isBackground = ib;
-        if (currentName.equals(this.getClass().getSimpleName())) {
+        if (currentPage == this) {
             //当前在栈顶
             if (ib) {//后台
                 RoadSideCarApplication.getInstance().getLocationService().enableLocInForeground(notification);
@@ -240,7 +240,7 @@ public class BaseActivity extends FragmentActivity implements PermissionUtils.Pe
     @Subscribe
     public void getWorkOrder(WorkOrderModel orderModel) {
 
-        if (!currentName.equals(this.getClass().getSimpleName())) {
+        if (currentPage != this) {
             //当前不在栈顶的不响应
             return;
         }
