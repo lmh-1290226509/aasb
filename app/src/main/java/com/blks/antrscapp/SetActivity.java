@@ -18,7 +18,6 @@ import com.blks.https.HttpUri;
 import com.blks.https.JsonRequestCallBack;
 import com.blks.pop.ClearCachePopupWindow;
 import com.blks.pop.ModfiyPasswordPopupWindow;
-import com.blks.utils.AudioFileFunc;
 import com.blks.utils.Constants;
 import com.blks.utils.IntentUtil;
 import com.blks.utils.LoginUtils;
@@ -146,30 +145,31 @@ public class SetActivity extends BaseActivity implements OnClickListener {
 			cacheWindow.dismiss();
 			switch (v.getId()) {
 			case R.id.tv_cache_continue:
-				String imgs=Environment.getExternalStorageDirectory().getAbsolutePath()+"/resapp/img/";
+				String imgs=Environment.getExternalStorageDirectory().getAbsolutePath()+"/resapp/";
 				File imgFile=new File(imgs);
-				if(imgFile.exists()){
-					File[] files = imgFile.listFiles();
-					if(files!=null){
-						for (File f:files) {
-							f.delete();
-						}
-					}
-				}
-				File amrFile=new File(AudioFileFunc.getAMRFilePath());
-				if(amrFile.exists()){
-					amrFile.delete();
-				}
+				deleteFile(imgFile);
+//				if(imgFile.exists()){
+//					File[] files = imgFile.listFiles();
+//					if(files!=null){
+//						for (File f:files) {
+//							f.delete();
+//						}
+//					}
+//				}
+//				File amrFile=new File(AudioFileFunc.getAMRFilePath());
+//				if(amrFile.exists()){
+//					amrFile.delete();
+//				}
+//
+//				File rawFile=new File(AudioFileFunc.getRawFilePath());
+//				if(rawFile.exists()){
+//					rawFile.delete();
+//				}
 
-				File rawFile=new File(AudioFileFunc.getRawFilePath());
-				if(rawFile.exists()){
-					rawFile.delete();
-				}
-
-				File wavFile=new File(AudioFileFunc.getWavFilePath());
-				if(wavFile.exists()){
-					wavFile.delete();
-				}
+//				File wavFile=new File(AudioFileFunc.getWavFilePath());
+//				if(wavFile.exists()){
+//					wavFile.delete();
+//				}
 
 				cacheWindow.dismiss();
 				break;
@@ -178,4 +178,17 @@ public class SetActivity extends BaseActivity implements OnClickListener {
 			}
 		}
 	};
+
+	private void deleteFile(File file) {
+		if (file.isDirectory()) {
+			File[] files = file.listFiles();
+			for (int i = 0; i < files.length; i++) {
+				File f = files[i];
+				deleteFile(f);
+			}
+			file.delete();//如要保留文件夹，只删除文件，请注释这行
+		} else if (file.exists()) {
+			file.delete();
+		}
+	}
 }

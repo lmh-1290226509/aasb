@@ -96,8 +96,12 @@ public class ApkUpdateUtils {
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+
+
                     }
                 })
+                .setCancelable(false)
                 .create()
                 .show();
     }

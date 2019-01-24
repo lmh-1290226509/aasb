@@ -20,7 +20,7 @@ public class CustomRecyclerUtil implements OnRefreshHeadListener, OnRefreshFoote
 	private Context mContextc;
 	private Map<String,Object> params;
 	private int page=1;
-	public int pageSize=20;
+	public int pageSize=10;
 	private boolean isRefresh = false;
 
 

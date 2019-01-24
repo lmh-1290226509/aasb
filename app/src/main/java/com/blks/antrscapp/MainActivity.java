@@ -276,7 +276,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         for (String per : permission) {
             if (per.equals(permissions[2])) {
                 RoadSideCarApplication.getInstance().getLocationService().start();
-            } else if (per.equals(permissions[1])) {
+            } else if (per.equals(permissions[1]) && !Constants.LoginStatus.ONLINE.equals(LoginUtils.getLoginStatus())) {
                 apkUpdateUtils.checkVersionRequest();
             }
         }

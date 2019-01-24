@@ -25,9 +25,7 @@ import com.blks.model.EventOrderModel_2;
 import com.blks.model.UploadFileModel;
 import com.blks.pop.RecordCachePopupWindow;
 import com.blks.pop.RefreshRecordCachePopupWindow;
-import com.blks.utils.AudioFileFunc;
 import com.blks.utils.AudioPlayer;
-import com.blks.utils.AudioRecordFunc;
 import com.blks.utils.Constants;
 import com.blks.utils.LoginUtils;
 import com.blks.utils.SharePreferenceUtil;
@@ -87,7 +85,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
         outSourceNo = getIntent().getStringExtra(Constants._OUT_SOURCE_NO);
         starRating = getIntent().getIntExtra(Constants._KEY_INT, 0);
 
-        AudioFileFunc.AUDIO_WAV_FILENAME = woNo+".wav";
+//        AudioFileFunc.AUDIO_WAV_FILENAME = woNo+".wav";
 
         audioPlayer = new AudioPlayer(this, woNo);
 //        recordFunc = AudioRecordFunc.getInstance();
@@ -393,16 +391,12 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
-//        if (recordFunc != null) {
-//            recordFunc.stopRecordAndFile();
-//            recordFunc.StopPlaying();
+//        if (audioPlayer != null) {
+//            audioPlayer.stopRecording();
+//            audioPlayer.StopPlaying();
 //        }
-        if (audioPlayer != null) {
-            audioPlayer.stopRecording();
-            audioPlayer.StopPlaying();
-        }
-        stopTimer();
-        stopDown();
+//        stopTimer();
+//        stopDown();
     }
 
     @Override
