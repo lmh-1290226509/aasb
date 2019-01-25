@@ -34,7 +34,6 @@ import com.ddadai.basehttplibrary.HttpUtils;
 import com.ddadai.basehttplibrary.response.Response_;
 import com.ddadai.basehttplibrary.utils.HttpCode;
 import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -424,7 +423,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 
     private void requestUpload() {
         //取消后台接口请求
-        OkGo.getInstance().cancelTag("background");
+//        OkGo.getInstance().cancelTag("background");
         HttpUtils.file().file(audioPlayer.getAudioPath(), audioPlayer.getAudioPath())
                 .callBack(new JsonRequestCallBack(mThis) {
                     @Override
@@ -457,7 +456,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
             return;
         }
 
-        OkGo.getInstance().cancelTag("background");
+//        OkGo.getInstance().cancelTag("background");
 
         HttpUtils.get(HttpUri.SAVE_EVALUATE_INFO)
                 .dialog(true)

@@ -11,7 +11,7 @@ public class FULocationClientOption {
 	}
 
 	public static boolean isNeedAddress = true;
-	public static int scanSpan = 4000;
+	public static int scanSpan = 3000;
 	public static LocationMode locationMode = LocationMode.Hight_Accuracy;
 	public static boolean isOpenGps = true;
 
