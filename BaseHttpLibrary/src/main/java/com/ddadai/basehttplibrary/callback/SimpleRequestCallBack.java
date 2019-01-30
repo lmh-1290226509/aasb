@@ -26,7 +26,7 @@ public abstract class SimpleRequestCallBack<T> implements OnRequestCallBack_<T> 
 
     @Override
     public void requestStart(String url, boolean isShowDialog, String dialogMsg) {
-        if(isShowDialog){
+        if(isShowDialog && dialogUtil != null){
             if(TextUtils.isEmpty(dialogMsg)){
                 dialogUtil.showLoadingDialog();
             }else{
@@ -48,7 +48,9 @@ public abstract class SimpleRequestCallBack<T> implements OnRequestCallBack_<T> 
 
     @Override
     public void requestFinish() {
-        dialogUtil.cancelLoadingDialog();
+        if (dialogUtil != null) {
+            dialogUtil.cancelLoadingDialog();
+        }
     }
 
 

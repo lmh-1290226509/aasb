@@ -47,7 +47,7 @@ public class NativeUtil {
 	 */
 	public static void compressBitmap(Bitmap image, String filePath) {
 		// 最大图片大小 100KB
-		int maxSize = 100;
+		int maxSize = 80;
 		// 获取尺寸压缩倍数
 		int ratio = NativeUtil.getRatioSize(image.getWidth(),image.getHeight());
 		// 压缩Bitmap到对应尺寸
@@ -118,7 +118,7 @@ public class NativeUtil {
 	 */
 	public static int getRatioSize(int bitWidth, int bitHeight) {
 		// 图片最大分辨率
-		int imageHeight = 960;//1280 960
+		int imageHeight = 800;//1280 960
 		int imageWidth = 640;//960 640
 		// 缩放比
 		int ratio = 1;
@@ -148,7 +148,7 @@ public class NativeUtil {
 		int w = newOpts.outWidth;
 		int h = newOpts.outHeight;
 		// 获取尺寸压缩倍数
-//		newOpts.inSampleSize = NativeUtil.getRatioSize(w,h);
+		newOpts.inSampleSize = NativeUtil.getRatioSize(w,h);
 		newOpts.inJustDecodeBounds = false;//读取所有内容
 		newOpts.inDither = false;
 		newOpts.inPurgeable=true;

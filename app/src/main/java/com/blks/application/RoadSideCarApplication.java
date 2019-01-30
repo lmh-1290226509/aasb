@@ -29,7 +29,7 @@ public class RoadSideCarApplication extends Application {
 
 	private int count = 0;
 
-	private boolean TEST = true;
+	private boolean TEST = false;
 
 	@Override
 	public void onCreate() {

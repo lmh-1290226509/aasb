@@ -25,12 +25,14 @@ import com.blks.fragment.MyFragment;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.blks.utils.LoginUtils.canRequest;
+
 public class HomePagerActivity extends BaseActivity implements OnClickListener {
 
 	private View ll_home, ll_list, ll_my;
 	private ImageView iv_home, iv_list, iv_my;// 首页 // 列表// 我
 	private TextView tv_home, tv_list, tv_my;
-	private int index = 0;
+	private int index = -1;
 	private Boolean isExit = false;
 	private Fragment homeFragment, customerListFragment, myFragment;
 
@@ -42,6 +44,12 @@ public class HomePagerActivity extends BaseActivity implements OnClickListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_home_pager);
 		initView();// 初始化数据
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		canRequest = true;
 	}
 
 	private void initView() {
@@ -63,11 +71,11 @@ public class HomePagerActivity extends BaseActivity implements OnClickListener {
 		if (ids == 2) {
 			onClick(ll_list);
 		} else {
-//			onClick(ll_list);
-			if (index == 0) {
+			onClick(ll_list);
+//			if (index == 0) {
 				// 默认显示第一页
 				onClick(ll_home);
-			}
+//			}
 		}
 
 
@@ -99,9 +107,9 @@ public class HomePagerActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.ll_home:
-//			if (index == 0) {
-//				return;
-//			}
+			if (index == 0) {
+				return;
+			}
 			hideFragments();
 			resetBottomButton();
 			index = 0;

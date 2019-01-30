@@ -34,6 +34,7 @@ import com.ddadai.basehttplibrary.HttpUtils;
 import com.ddadai.basehttplibrary.response.Response_;
 import com.ddadai.basehttplibrary.utils.HttpCode;
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -41,6 +42,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.blks.utils.LoginUtils.canRequest;
 
 /**
  * @author shaoshuai
@@ -390,6 +393,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
+        canRequest = true;
 //        if (audioPlayer != null) {
 //            audioPlayer.stopRecording();
 //            audioPlayer.StopPlaying();
@@ -423,11 +427,13 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 
     private void requestUpload() {
         //取消后台接口请求
-//        OkGo.getInstance().cancelTag("background");
+        canRequest = false;
+        OkGo.getInstance().cancelTag("background");
         HttpUtils.file().file(audioPlayer.getAudioPath(), audioPlayer.getAudioPath())
                 .callBack(new JsonRequestCallBack(mThis) {
                     @Override
                     public void requestSuccess(String url, JSONObject jsonObject) {
+                        canRequest = true;
                         btn_record.setEnabled(true);
                         UploadFileModel uploadFileModel = new Gson().fromJson(jsonObject.toString(), UploadFileModel.class);
                         requestSaveConment(uploadFileModel);
@@ -436,6 +442,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
                     @Override
                     public void requestFail(String url, Response_<JSONObject> response) {
                         super.requestFail(url, response);
+                        canRequest = true;
 //                        mImageInfoList.remove(model);
 ////                        mImageInfoList.remove(mImageInfoList.indexOf(model));
 //                        adapter.setList(mImageInfoList);
@@ -455,8 +462,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
             btn_record.setEnabled(true);
             return;
         }
-
-//        OkGo.getInstance().cancelTag("background");
+        canRequest = false;
+        OkGo.getInstance().cancelTag("background");
 
         HttpUtils.get(HttpUri.SAVE_EVALUATE_INFO)
                 .dialog(true)
@@ -474,6 +481,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
                 .callBack(new JsonRequestCallBack(mThis) {
                     @Override
                     public void requestSuccess(String url, JSONObject jsonObject) {
+                        canRequest = true;
                         RoadSideCarApplication.getInstance().showToast("谢谢您的评价！");
                         btn_record.setEnabled(true);
                         //发送工单信息到位置更新服务
@@ -502,6 +510,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
                     @Override
                     public void requestFail(String url, Response_<JSONObject> response) {
                         super.requestFail(url, response);
+                        canRequest = true;
                         btn_record.setEnabled(true);
                     }
                 })

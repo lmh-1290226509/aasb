@@ -39,6 +39,7 @@ import com.ddadai.basehttplibrary.HttpUtils;
 import com.ddadai.basehttplibrary.response.Response_;
 import com.ddadai.basehttplibrary.utils.HttpCode;
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 import com.yongchun.library.ImageSelectorUtil;
 
 import org.json.JSONArray;
@@ -48,6 +49,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.blks.utils.LoginUtils.canRequest;
 
 public class CameraHelpActivity extends BaseActivity implements
         BtnOnClickListenter, OnClickListener {
@@ -85,8 +88,15 @@ public class CameraHelpActivity extends BaseActivity implements
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        canRequest = true;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        canRequest = true;
         adapter.onDestroy();
         adapter = null;
     }
@@ -161,10 +171,13 @@ public class CameraHelpActivity extends BaseActivity implements
     }
 
     private void upload(final ImageInfo model) {
+        canRequest = false;
+        OkGo.getInstance().cancelTag("background");
         HttpUtils.img().file(model.getLocalImage(),model.getLocalImage())
                 .callBack(new JsonRequestCallBack(mThis) {
                     @Override
                     public void requestSuccess(String url, JSONObject jsonObject) {
+                        canRequest = true;
                         mImageInfoList.remove(model);
                         UploadFileModel uploadFileModel=new Gson().fromJson(jsonObject.toString(),UploadFileModel.class);
                         if (TextUtils.isEmpty(uploadFileModel.saveid)) {
@@ -180,6 +193,7 @@ public class CameraHelpActivity extends BaseActivity implements
                     @Override
                     public void requestFail(String url, Response_<JSONObject> response) {
                         super.requestFail(url, response);
+                        canRequest = true;
                         if (HttpCode.NETWORK_ERROR.equals(response.code)) {
                             ToastUtil.showShort(context, response.msg);
                         } else {
@@ -401,7 +415,8 @@ public class CameraHelpActivity extends BaseActivity implements
             ja.put(jsonObject);
         }
 //取消后台接口请求
-//        OkGo.getInstance().cancelTag("background");
+        canRequest = false;
+        OkGo.getInstance().cancelTag("background");
 
         HttpUtils.postImageInfo()
                 .data("woNo", workOrderData.WO_NO)
@@ -415,7 +430,7 @@ public class CameraHelpActivity extends BaseActivity implements
                 .callBack(new JsonRequestCallBack(mThis) {
                     @Override
                     public void requestSuccess(String url, JSONObject jsonObject) {
-
+                        canRequest = true;
                         btn_commit.setEnabled(true);
                         Intent intent = new Intent(CameraHelpActivity.this, ClientSureActivity.class);
                         intent.putExtra(Constants._WO_NO, workOrderData.WO_NO);
@@ -427,6 +442,7 @@ public class CameraHelpActivity extends BaseActivity implements
                     @Override
                     public void requestFail(String url, Response_<JSONObject> response) {
                         super.requestFail(url, response);
+                        canRequest = true;
                         btn_commit.setEnabled(true);
 
                         if (HttpCode.NETWORK_ERROR.equals(response.code)) {

@@ -4,9 +4,7 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.support.annotation.Nullable;
 
 import com.blks.https.HttpUri;
@@ -18,6 +16,7 @@ import com.ddadai.basehttplibrary.utils.ContentType;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.blks.utils.LoginUtils.canRequest;
 import static com.blks.utils.LoginUtils.isNetwork;
 
 public class HeartService extends Service {
@@ -29,13 +28,13 @@ public class HeartService extends Service {
 
     private Timer timer;
 
-    private Handler handler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            requestHeart();
-            return false;
-        }
-    });
+//    private Handler handler = new Handler(new Handler.Callback() {
+//        @Override
+//        public boolean handleMessage(Message msg) {
+//            requestHeart();
+//            return false;
+//        }
+//    });
 
     @Override
     public void onCreate() {
@@ -67,7 +66,8 @@ public class HeartService extends Service {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                handler.sendEmptyMessage(1);
+//                handler.sendEmptyMessage(1);
+                requestHeart();
             }
         };
 
@@ -84,7 +84,7 @@ public class HeartService extends Service {
 
 
     private void requestHeart() {
-        if (!isNetwork || LoginUtils.getLoginModel() == null) {
+        if (!isNetwork || LoginUtils.getLoginModel() == null || !canRequest) {
             return;
         }
         HttpUtils.get(HttpUri.HEART_BEAT)

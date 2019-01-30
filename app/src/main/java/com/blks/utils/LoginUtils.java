@@ -11,6 +11,7 @@ public class LoginUtils {
     private static String userStatus = "0"; //0-离线/1-在线/2-待命/3-离开/4-繁忙
 
     public static boolean isNetwork;
+    public static  boolean canRequest = true;
 
     public static void setLoginModel(LoginModel.DataListModel loginModel){
         LoginUtils.loginModel=loginModel;

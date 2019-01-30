@@ -22,8 +22,11 @@ import com.ddadai.basehttplibrary.HttpUtils;
 import com.ddadai.basehttplibrary.response.Response_;
 import com.ddadai.basehttplibrary.utils.HttpCode;
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 
 import org.json.JSONObject;
+
+import static com.blks.utils.LoginUtils.canRequest;
 
 public class ClientSureActivity extends BaseActivity implements OnClickListener {
 
@@ -42,6 +45,12 @@ public class ClientSureActivity extends BaseActivity implements OnClickListener 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_client_sure);
 		initView();// 初始化数据
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		canRequest = true;
 	}
 
 	private void initView() {
@@ -121,6 +130,8 @@ public class ClientSureActivity extends BaseActivity implements OnClickListener 
 	 * 根据工单号获取工单信息
 	 */
 	private void getRscWOMstrByWoNo() {
+		canRequest = false;
+		OkGo.getInstance().cancelTag("background");
 		HttpUtils.get(HttpUri.GET_RSC_WOMSTR_BY_WONO)
 				.dialog(true)
 				.data("woNo", woNo)
@@ -128,6 +139,7 @@ public class ClientSureActivity extends BaseActivity implements OnClickListener 
 				.callBack(new JsonRequestCallBack(this) {
 					@Override
 					public void requestSuccess(String url, JSONObject jsonObject) {
+						canRequest = true;
 						WorkOrderModel workOrderModel = new Gson().fromJson(jsonObject.toString(), WorkOrderModel.class);
 
 						if (workOrderModel.DataList != null && workOrderModel.DataList.size() > 0) {
@@ -139,6 +151,7 @@ public class ClientSureActivity extends BaseActivity implements OnClickListener 
 					@Override
 					public void requestFail(String url, Response_<JSONObject> response) {
 						super.requestFail(url, response);
+						canRequest = true;
 						if (HttpCode.NETWORK_ERROR.equals(response.code)) {
 							ToastUtil.showShort(mThis,response.msg);
 						}

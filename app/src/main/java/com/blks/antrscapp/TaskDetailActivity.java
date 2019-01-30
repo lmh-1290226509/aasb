@@ -60,6 +60,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.blks.utils.LoginUtils.canRequest;
+
 /**
  * 任务详情
  */
@@ -277,7 +279,14 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 	}
 
 	@Override
+	protected void onStop() {
+		super.onStop();
+		canRequest = true;
+	}
+
+	@Override
 	protected void onDestroy() {
+        canRequest = true;
 		// // 关闭定位图层
 		mBaiduMap.setMyLocationEnabled(false);
 		mBaiduMap.clear();
@@ -402,6 +411,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 		if (workNo == null) {
 			return;
 		}
+        canRequest = false;
         HttpUtils.get(HttpUri.GET_RSC_WOMSTR_BY_WONO)
                 .dialog(true)
                 .data("woNo", workNo)
@@ -409,6 +419,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
                 .callBack(new JsonRequestCallBack(this) {
                     @Override
                     public void requestSuccess(String url, JSONObject jsonObject) {
+                        canRequest = true;
 						WorkOrderModel workOrderModel = new Gson().fromJson(jsonObject.toString(), WorkOrderModel.class);
 
 						if (workOrderModel.DataList != null && workOrderModel.DataList.size() > 0) {
@@ -421,6 +432,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 					@Override
 					public void requestFail(String url, Response_<JSONObject> response) {
 						super.requestFail(url, response);
+                        canRequest = true;
 						findViewById(R.id.order_Info_layout).setVisibility(View.GONE);
 						if (HttpCode.NETWORK_ERROR.equals(response.code)) {
 							ToastUtil.showShort(context,response.msg);
@@ -494,7 +506,8 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 	 * 回复工单分配状态
 	 */
 	private void replyForRscWOMstr(final String reply) {
-
+        canRequest = false;
+		OkGo.getInstance().cancelTag("background");
 		HttpUtils.get(HttpUri.REPLY_FOR_RSC_WOMSTR)
 				.dialog(true)
 				.data("woNo", workOrderData.WO_NO)
@@ -515,7 +528,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 				.callBack(new JsonRequestCallBack(this) {
 					@Override
 					public void requestSuccess(String url, JSONObject jsonObject) {
-
+                        canRequest = true;
 						if (TextUtils.equals("0", reply)) {
 							//30s无响应
 							ToastUtil.showPosition(TaskDetailActivity.this,"您没有回应该救援单！");
@@ -548,6 +561,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 					@Override
 					public void requestFail(String url, Response_<JSONObject> response) {
 						super.requestFail(url, response);
+                        canRequest = true;
 
 						if (HttpCode.NETWORK_ERROR.equals(response.code)) {
 							ToastUtil.showShort(context,response.msg);
@@ -578,7 +592,8 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 	 * @param option
 	 */
 	private void updateRscWorkerOption(final String option) {
-
+        canRequest = false;
+		OkGo.getInstance().cancelTag("background");
 		HttpUtils.get(HttpUri.UPDATE_RSC_WORKER_OPTION)
 				.dialog(true)
 				.data("woNo", workOrderData.WO_NO)
@@ -593,6 +608,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 				.callBack(new JsonRequestCallBack(this) {
 					@Override
 					public void requestSuccess(String url, JSONObject jsonObject) {
+                        canRequest = true;
 
 						if (option.equals("出发")) {
 //							destinations = destination.getText().toString().trim();
@@ -620,6 +636,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 					@Override
 					public void requestFail(String url, Response_<JSONObject> response) {
 						super.requestFail(url, response);
+                        canRequest = true;
 
 						if (HttpCode.NETWORK_ERROR.equals(response.code)) {
 							ToastUtil.showShort(context,response.msg);
@@ -690,7 +707,6 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 			remindWindow.dismiss();
 			switch (v.getId()) {
 			case R.id.tv_remind_continue:// 确定
-				OkGo.getInstance().cancelTag("background");
 				updateRscWorkerOption("到达");
 				break;
 			case R.id.tv_remind_cancel:// 取消
@@ -729,6 +745,7 @@ public class TaskDetailActivity extends BaseActivity implements OnClickListener 
 
 		} else {
 			// PreferencesUtil.setPreferences(this, "isFresh", "0");
+            canRequest = true;
 			finish();
 		}
 	}

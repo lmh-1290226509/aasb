@@ -36,12 +36,15 @@ import com.ddadai.basehttplibrary.HttpUtils;
 import com.ddadai.basehttplibrary.response.Response_;
 import com.ddadai.basehttplibrary.utils.HttpCode;
 import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.blks.utils.LoginUtils.canRequest;
 
 /**
  * 拖车
@@ -250,7 +253,8 @@ public class TrailerHandleAct extends BaseActivity implements View.OnClickListen
      * @param option
      */
     private void updateRscWorkerOption(final String option) {
-//        OkGo.getInstance().cancelTag("background");
+        canRequest = false;
+        OkGo.getInstance().cancelTag("background");
         HttpUtils.get(HttpUri.UPDATE_RSC_WORKER_OPTION)
                 .dialog(true)
                 .data("woNo", workOrderData.WO_NO)
@@ -265,7 +269,7 @@ public class TrailerHandleAct extends BaseActivity implements View.OnClickListen
                 .callBack(new JsonRequestCallBack(this) {
                     @Override
                     public void requestSuccess(String url, JSONObject jsonObject) {
-
+                        canRequest = true;
                         if (option.equals("拖车出发")) {
                             btn_start.setVisibility(View.GONE);
                             btn_arrive.setVisibility(View.VISIBLE);
@@ -309,6 +313,7 @@ public class TrailerHandleAct extends BaseActivity implements View.OnClickListen
                     @Override
                     public void requestFail(String url, Response_<JSONObject> response) {
                         super.requestFail(url, response);
+                        canRequest = true;
                         btn_start.setEnabled(true);
                         btn_arrive.setEnabled(true);
                         if (HttpCode.NETWORK_ERROR.equals(response.code)) {
@@ -366,6 +371,12 @@ public class TrailerHandleAct extends BaseActivity implements View.OnClickListen
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        canRequest = true;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         // // 关闭定位图层
@@ -381,6 +392,8 @@ public class TrailerHandleAct extends BaseActivity implements View.OnClickListen
      * 根据工单号获取工单信息
      */
     private void getRscWOMstrByWoNo() {
+        canRequest = false;
+        OkGo.getInstance().cancelTag("background");
         HttpUtils.get(HttpUri.GET_RSC_WOMSTR_BY_WONO)
                 .dialog(true)
                 .data("woNo", workOrderData.WO_NO)
@@ -388,6 +401,7 @@ public class TrailerHandleAct extends BaseActivity implements View.OnClickListen
                 .callBack(new JsonRequestCallBack(this) {
                     @Override
                     public void requestSuccess(String url, JSONObject jsonObject) {
+                        canRequest = true;
                         WorkOrderModel workOrderModel = new Gson().fromJson(jsonObject.toString(), WorkOrderModel.class);
 
                         if (workOrderModel.DataList != null && workOrderModel.DataList.size() > 0) {
@@ -400,6 +414,7 @@ public class TrailerHandleAct extends BaseActivity implements View.OnClickListen
                     @Override
                     public void requestFail(String url, Response_<JSONObject> response) {
                         super.requestFail(url, response);
+                        canRequest = true;
                         if (HttpCode.NETWORK_ERROR.equals(response.code)) {
                             ToastUtil.showShort(mThis,response.msg);
                         }

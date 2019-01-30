@@ -2,9 +2,7 @@ package com.blks.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
@@ -33,13 +31,13 @@ public class TaskService extends Service {
     private int askSkip = 0;
     private int getStatusFlag = 0;
 
-    private Handler handler=new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            requestTask();
-            return false;
-        }
-    });
+//    private Handler handler=new Handler(new Handler.Callback() {
+//        @Override
+//        public boolean handleMessage(Message msg) {
+//            requestTask();
+//            return false;
+//        }
+//    });
 
     @Override
     public void onCreate() {
@@ -60,7 +58,8 @@ public class TaskService extends Service {
         timerTask=new TimerTask() {
             @Override
             public void run() {
-                handler.sendEmptyMessage(3);
+//                handler.sendEmptyMessage(3);
+                requestTask();
             }
         };
 
@@ -107,7 +106,7 @@ public class TaskService extends Service {
                     .onlyKey("param")
                     .priority(5)
                     .tag("background")
-                    .callBack(new JsonRequestCallBack(this) {
+                    .callBack(new JsonRequestCallBack(null) {
                         @Override
                         public void requestSuccess(String url, JSONObject jsonObject) {
                             WorkOrderModel orderModel = new Gson().fromJson(jsonObject.toString(), WorkOrderModel.class);
@@ -129,7 +128,7 @@ public class TaskService extends Service {
                         .onlyKey("param")
                         .priority(5)
                         .tag("background")
-                        .callBack(new JsonRequestCallBack(this) {
+                        .callBack(new JsonRequestCallBack(null) {
                             @Override
                             public void requestSuccess(String url, JSONObject jsonObject) {
                                 WorkOrderModel orderModel = new Gson().fromJson(jsonObject.toString(), WorkOrderModel.class);
@@ -154,7 +153,7 @@ public class TaskService extends Service {
                 .onlyKey("usrId")
                 .priority(5)
                 .tag("background")
-                .callBack(new JsonRequestCallBack(this) {
+                .callBack(new JsonRequestCallBack(null) {
                     @Override
                     public void requestSuccess(String url, JSONObject jsonObject) {
                     }
@@ -190,12 +189,12 @@ public class TaskService extends Service {
                 .data("status", state)
                 .priority(5)
                 .tag("background")
-                .callBack(new JsonRequestCallBack(this) {
-                    @Override
-                    public void requestSuccess(String url, JSONObject jsonObject) {
-
-                    }
-                })
+//                .callBack(new JsonRequestCallBack(this) {
+//                    @Override
+//                    public void requestSuccess(String url, JSONObject jsonObject) {
+//
+//                    }
+//                })
                 .request();
     }
 

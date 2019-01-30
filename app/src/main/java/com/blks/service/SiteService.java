@@ -5,9 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -33,6 +31,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.blks.utils.LoginUtils.canRequest;
 import static com.blks.utils.LoginUtils.isNetwork;
 
 public class SiteService extends Service {
@@ -45,13 +44,13 @@ public class SiteService extends Service {
 
     private List<EventOrderModel> orderModels;//救援中的订单
 
-    private Handler handler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            updateSide();
-            return false;
-        }
-    });
+//    private Handler handler = new Handler(new Handler.Callback() {
+//        @Override
+//        public boolean handleMessage(Message msg) {
+//            updateSide();
+//            return false;
+//        }
+//    });
 
     @Override
     public void onCreate() {
@@ -76,7 +75,8 @@ public class SiteService extends Service {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                handler.sendEmptyMessage(2);
+//                handler.sendEmptyMessage(2);
+                updateSide();
             }
         };
 
@@ -134,7 +134,7 @@ public class SiteService extends Service {
     }
 
     private void updateSide() {
-        if (!isNetwork || LoginUtils.getLoginModel() == null) {
+        if (!isNetwork || LoginUtils.getLoginModel() == null || !canRequest) {
             return;
         }
 
